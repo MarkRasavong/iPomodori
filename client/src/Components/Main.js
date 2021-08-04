@@ -9,8 +9,10 @@ const renderConsistency =
   "[# consistent Days of [Task Name] with *random reminders/facts from books";
 const renderTotal = `[Task Name] [Tomato icon, # of Hours] under list render 1 tomato as reference to 1 hr & user able to delete task on hover`;
 
+
 const Main = () => {
-  return (
+    
+    return (
     <Container maxWidth="lg">
       <Typography align="center" variant="h2" component="h2">
         I P<GiTomato size="40px" color="red" />m
