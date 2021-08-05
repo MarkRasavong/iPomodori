@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { addGoal } from '../actions';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -6,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 //icons
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,18 +30,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function TaskInput(props) {
+const TaskInput = (props) => {
   const classes = useStyles();
-  const [ task, setTask ] = useState('')
+  const [ goal, setGoal ] = useState('')
 
   const handleChange = e => {
-    setTask(e.target.value)
+    setGoal(e.target.value)
   }
 
   const handleSubmit = e => {
-    props.addTask(task);
-    setTask('')
+    props.addGoal(goal);
+    setGoal('');
     e.preventDefault();
+    
   }
 
   return (
@@ -49,8 +52,8 @@ export default function TaskInput(props) {
         placeholder="Add New Task"
         inputProps={{ 'aria-label': 'New Task', }}
         onChange={handleChange}
-        name='task'
-        value={task}
+        name='goal'
+        value={goal}
       />
       <IconButton type="submit" className={classes.iconButton} aria-label="add task">
       <PostAddIcon />
@@ -58,3 +61,7 @@ export default function TaskInput(props) {
     </Paper>
   );
 }
+
+export default connect(null, { 
+  addGoal 
+})(TaskInput)

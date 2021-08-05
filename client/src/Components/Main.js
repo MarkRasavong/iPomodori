@@ -14,6 +14,7 @@ const Main = () => {
     
     return (
     <Container maxWidth="lg">
+        {/*     Tomato Title      */}
       <Typography align="center" variant="h2" component="h2">
         I P<GiTomato size="40px" color="red" />m
         <GiTomato size="40px" color="red" />d
@@ -23,11 +24,10 @@ const Main = () => {
       <Typography align="center" variant="h6" component="h2">
         The Favorite Tomato Productivity Technique but with more tomatoes.
       </Typography>
-
+        {/*     Tomato Title Ends  */}
       <Box  align='center'>
         <TaskInput />
       </Box>
-
       <Box display="flex" flexDirection="row">
         <Box p={4}>
           <TimerCard />
