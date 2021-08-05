@@ -5,17 +5,15 @@ const Countdown = (props) => (
     <CountdownCircleTimer
       isPlaying={props.isPlaying}
       duration={props.duration}
-      colors={[
-        ["#004777", 0.4],
-        ["#F7B801", 0.4],
-        ["#A30000", 0.2],
-      ]}
+      key={props.key}
+      colors={props.colors}
       onComplete={() => {
-        
+        // do your stuff here
+        return [true, 5000] // repeat animation in 1.5 seconds
       }}
     >
       {({ remainingTime, animatedColor }) => (
-        <h2 style={{ color: animatedColor }}>{remainingTime}</h2>
+        <h2 style={{ color: animatedColor, textAlign: 'center' }}>{props.text}{(<br/>)}{remainingTime}</h2>
       )}
     </CountdownCircleTimer>
     )

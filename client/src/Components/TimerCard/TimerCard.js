@@ -10,12 +10,14 @@ import {
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Countdown from "../Countdown";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 //icons
 import SettingsIcon from "@material-ui/icons/Settings";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import Dropdown from "../Dropdown";
+import { workMinutes } from "./time";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,16 +47,17 @@ const useStyles = makeStyles((theme) => ({
 
 // if no tasked selected render Select a task, timer content goes here
 
-
 const TimerCard = () => {
-  const [ play, setPlay ] = useState(false);
-  const [ anchorEl, setAnchorEl ] = useState(false);
-  const [ timer, setTimer ] = useState(60);
+  const [minutes, setMinutes] = useState(60);
+  const [key, setKey] = useState(0);
+  const [play, setPlay] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(false);
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : null;
 
   const classes = useStyles();
   useTheme();
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : null;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,7 +66,6 @@ const TimerCard = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
 
   return (
     <Card className={classes.root}>
@@ -75,7 +77,21 @@ const TimerCard = () => {
           <Dropdown />
         </CardContent>
 
-      <Countdown duration={timer} isPlaying={play}/>
+        {/*Work Timer */}
+        <CountdownCircleTimer
+      isPlaying={play}
+      duration={minutes}
+      key={key}
+      colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
+      onComplete={() => {
+        // do your stuff here
+        return [true, 5000] // repeat animation in 1.5 seconds
+      }}
+    >
+      {({ remainingTime, animatedColor }) => (
+        <h2 style={{ color: animatedColor, textAlign: 'center' }}>{remainingTime}</h2>
+      )}
+    </CountdownCircleTimer>
 
         <Box className={classes.controls}>
           <IconButton aria-label="play/pause" onClick={() => setPlay(!play)}>
@@ -101,15 +117,22 @@ const TimerCard = () => {
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
               transformOrigin={{ vertical: "top", horizontal: "center" }}
             >
-              <Box p={0.5}>
-                <Button color='primary' onClick={()=>setTimer(20)}>20 Minutes</Button>
-              </Box>
-              <Box p={0.5}>
-                <Button color='primary' onClick={()=>setTimer(30)}>30 Minutes</Button>
-              </Box>
-              <Box p={0.5}>
-                <Button color='primary' onClick={()=>setTimer(60)}>60 Minutes</Button>
-              </Box>
+              {workMinutes.map((interval) => {
+                const { minutes } = interval;
+                return (
+                  <Box p={0.5}>
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        setKey((prevKey) => prevKey + 1);
+                        setMinutes(minutes);
+                      }}
+                    >
+                      {minutes} Minutes
+                    </Button>
+                  </Box>
+                );
+              })}
             </Popover>
           </>
         </Box>
