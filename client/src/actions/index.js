@@ -17,4 +17,8 @@ import {
      dispatch({type: RETRIEVE_GOALS, payload: response.data})
  };
 
- 
+ export const deleteGoal = id => async dispatch => {
+     await goals.delete(`/goals/${id}`)
+
+     dispatch({ type: REMOVE_GOAL, payload: id })
+ };

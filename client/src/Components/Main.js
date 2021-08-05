@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Container, Typography } from "@material-ui/core";
-import TimerCard from "./TimerCard";
+import TimerCard from "./TimerCard/TimerCard";
 import Targeta from "./Targeta";
 import { GiTomato } from "react-icons/gi";
 import TaskInput from "./TaskInput";
