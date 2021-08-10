@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Container, Typography } from "@material-ui/core";
-import TimerCard from "./TimerCard/TimerCard";
 import Targeta from "./Targeta";
 import { GiTomato } from "react-icons/gi";
 import TaskInput from "./TaskInput";
+import IlPomodoro from './TimerCard/IlPomodoro';
 
 const renderConsistency =
   "[# consistent Days of [Task Name] with *random reminders/facts from books";
@@ -30,7 +30,7 @@ const Main = () => {
       </Box>
       <Box display="flex" flexDirection="row">
         <Box p={4}>
-          <TimerCard />
+          <IlPomodoro />
         </Box>
         <Box p={4}>
           <Targeta title="Consistency" content={renderConsistency} />
