@@ -2,26 +2,67 @@
   "goals": [
     {
       "goal": "Learn Italian",
-      "id": 1
+      "id": 0
     },
     {
       "goal": "Make pasta with tomato sauce",
-      "id": 2
+      "id": 1
     },
     {
       "goal": "fare una pasta un'altra volta",
-      "id": 3
+      "id": 2
     },
     {
       "goal": "ritorno parlando in inglese, non ricordo bene.",
-      "id": 4
+      "id": 3
     },
     {
       "goal": "parlo con straniero en inglese",
-      "id": 5
+      "id": 4
     }
   ],
-  "track": [
-    {}
+  "records": [
+    {
+      "id": "b7slAP",
+      "sessionTime": 1,
+      "goal": "",
+      "timeStapmed": "14:15:20",
+      "date": "10-8-2021"
+    },
+    {
+      "id": "u_cq6-",
+      "sessionTime": 1,
+      "goal": "Learn Italian",
+      "timeStapmed": "14:15:20",
+      "date": "10-8-2021"
+    },
+    {
+      "id": "zagmL2",
+      "sessionTime": 1,
+      "goal": "fare una pasta un'altra volta",
+      "timeStapmed": "16:3:23",
+      "date": "10-8-2021"
+    },
+    {
+      "id": "C9jA7u",
+      "sessionTime": 1,
+      "goal": "ritorno parlando in inglese, non ricordo bene.",
+      "timeStapmed": "10:8",
+      "date": "10-8-2021"
+    },
+    {
+      "id": "F8JdTz",
+      "sessionTime": 1,
+      "goal": "",
+      "timeStapmed": "12:58",
+      "date": "10-8-2021"
+    },
+    {
+      "id": "ChL50L",
+      "sessionTime": 1,
+      "goal": "",
+      "timeStapmed": "16:20:35",
+      "date": "10/08/2021"
+    }
   ]
 }

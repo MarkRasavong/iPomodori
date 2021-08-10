@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { nanoid } from 'nanoid';
 import {
     Box,
     Card,
@@ -8,16 +9,13 @@ import {
     withStyles,
   } from "@material-ui/core";
   
-  import { connect } from "react-redux";
-  
+import { connect } from "react-redux";
+import { sendRecords } from "../../actions";  
   //icons
 import Dropdown from "../Dropdown";
-import Interval from "./Interval";
 import Timer from "./Timer";
 import KeyboardArrowUp from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
-import Pause from "@material-ui/icons/Pause";
-import PlayArrow from "@material-ui/icons/PlayArrow";
 
 const useStyles = theme => ({
     root: {
@@ -46,29 +44,35 @@ const useStyles = theme => ({
   });
 
 class Pomodoro extends Component{
+    today = new Date();
     state = {
           breaklength: 5,
           sessionLength: 25,
           timerMinute: 25,
-          play: false,
           isPlaying: false,
+          recordedInterval: 0,
+          selectedGoal: '',
+          timeStamp: null,
+          completedDate: null
       }
+
+
 onIncreaseSessionLength = () => {
     if(this.state.sessionLength === 60){
         return;
     }
     this.setState({
-            sessionLength: this.state.sessionLength + 5,
-            timerMinute: this.state.sessionLength + 5
+            sessionLength: this.state.sessionLength + 1,
+            timerMinute: this.state.sessionLength + 1
     })
 }      
 onDecreaseSessionLength = () => {
-    if(this.state.sessionLength === 5){
+    if(this.state.sessionLength === 1){
         return;
     }
     this.setState({
-        sessionLength: this.state.sessionLength - 5,
-        timerMinute: this.state.sessionLength - 5
+        sessionLength: this.state.sessionLength - 1,
+        timerMinute: this.state.sessionLength - 1
     })
 }
 
@@ -77,17 +81,17 @@ onDecreaseSessionLength = () => {
          return;
      }
     this.setState({
-          breaklength: this.state.breaklength + 5,
+          breaklength: this.state.breaklength + 1,
         })
  }
 
  onDecreaseBreakLength = () => {
-     if(this.state.breaklength === 5){
+     if(this.state.breaklength === 1){
          return;
      }
 
     this.setState({
-          breaklength: this.state.breaklength - 5,
+          breaklength: this.state.breaklength - 1,
         })
  }
 
@@ -98,7 +102,7 @@ onDecreaseSessionLength = () => {
     )
  }
 
- onToggleInterval(onSession){
+ onToggleInterval = (onSession) => {
     if(onSession){
         return this.setState({
          timerMinute: this.state.sessionLength
@@ -122,6 +126,28 @@ onDecreaseSessionLength = () => {
      })
  }
 
+ selectedGoal = (prevValue) => {
+     this.setState({ 
+         selectedGoal: prevValue
+     });
+ };
+
+ recordedInterval = prevValue => {
+     const options = { day: 'numeric', month: 'numeric', year: 'numeric' }
+     this.setState({ recordedInterval :prevValue });
+     if(prevValue !== 0){
+         const record = {
+             id: nanoid(6),
+             sessionTime : this.state.timerMinute,
+             goal: this.state.selectedGoal,
+             timeStapmed: new Date().toLocaleTimeString(),
+             date: new Date().toLocaleDateString(options)
+
+         };
+         this.props.sendRecords(record);
+     }
+ }
+
     render(){
         const  { classes } = this.props;
       return (
@@ -131,16 +157,20 @@ onDecreaseSessionLength = () => {
             Timer
           </Typography>
           <CardContent className={classes.content}>
-            <Dropdown />
+            <Dropdown 
+            selectedGoal={this.selectedGoal}
+            />
           </CardContent>
           {/*TIMER LOGIC*/}
-          <Timer 
+          <Timer
+          sessionLength={this.state.sessionLength}
           timerMinute={this.state.timerMinute}
           breakLength={this.state.breaklength}
           updateTimerMinute={this.updateTimerMinute}
           toggleInterval={this.onToggleInterval}
           resetTimer={this.onResetTimer}
           onPlayStopTimer={this.onPlayTimer}
+          recordedInterval={this.recordedInterval}
           /> 
           <Box className={classes.controls}>
             { /* Session Timer Settings*/ }
@@ -149,13 +179,13 @@ onDecreaseSessionLength = () => {
             <Typography variant='p'>Session</Typography>
             </Box>
             <>
-            <IconButton aria-label='increase session length' disabled={this.props.isPlaying ? true : false} onClick={this.onIncreaseSessionLength} isPlaying={this.state.isPlaying}>
+            <IconButton aria-label='increase session length' disabled={this.state.isPlaying ? true : false} onClick={this.onIncreaseSessionLength} isPlaying={this.state.isPlaying}>
                 <KeyboardArrowUp className={classes.icon} />
             </IconButton>
             <Box textAlign='center'>
             <Typography variant='h5' alignCenter>{this.state.sessionLength}</Typography>
             </Box>
-            <IconButton aria-label='decrease session length' disabled={this.props.isPlaying ? true : false} onClick={this.onDecreaseSessionLength} isPlaying={this.state.isPlaying}>
+            <IconButton aria-label='decrease session length' disabled={this.state.isPlaying ? true : false} onClick={this.onDecreaseSessionLength} isPlaying={this.state.isPlaying}>
                 <KeyboardArrowDown className={classes.icon} />
             </IconButton>
             </>
@@ -165,13 +195,13 @@ onDecreaseSessionLength = () => {
             <Box textAlign='center'>
             <Typography variant='p'>Break</Typography>
             </Box>
-            <IconButton aria-label='increase break length' disabled={this.props.isPlaying ? true : false} onClick={this.onIncreaseBreakLength} isPlaying={this.state.isPlaying}>
+            <IconButton aria-label='increase break length' disabled={this.state.isPlaying ? true : false} onClick={this.onIncreaseBreakLength} isPlaying={this.state.isPlaying}>
                 <KeyboardArrowUp className={classes.icon} />
             </IconButton>
             <Box textAlign='center'>
             <Typography variant='h5' alignCenter>{this.state.breaklength}</Typography>
             </Box>
-            <IconButton aria-label='decrease break length' disabled={this.props.isPlaying ? true : false} onClick={this.onDecreaseBreakLength} isPlaying={this.state.isPlaying}>
+            <IconButton aria-label='decrease break length' disabled={this.state.isPlaying ? true : false} onClick={this.onDecreaseBreakLength} isPlaying={this.state.isPlaying}>
                 <KeyboardArrowDown className={classes.icon} />
             </IconButton>
         </Box>
@@ -182,4 +212,4 @@ onDecreaseSessionLength = () => {
    }
 }
 
-export default withStyles(useStyles)(Pomodoro);
+export default connect(null, { sendRecords })(withStyles(useStyles)(Pomodoro));

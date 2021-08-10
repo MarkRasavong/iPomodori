@@ -19,18 +19,24 @@ const styles = (theme) => ({
 
 class Dropdown extends Component{
   state = {
-    goal: null,
+    goal: '',
   }
 
   componentDidMount(){
     this.props.retrieveGoals();
   };
 
+  componentDidUpdate(prevState){
+    if(prevState.goal !== this.state.goal){
+      this.props.selectedGoal(this.state.goal);
+    }
+  }
+
   renderGoals(){
     return this.props.goals.map(item => {
       const { goal, id } = item;
 
-      return  <MenuItem value={goal} key={id}>
+      return  <MenuItem value={goal} key={id} >
           <IconButton aria-label='trash'
           onClick={()=>this.props.deleteGoal(id)}
           >
@@ -43,7 +49,7 @@ class Dropdown extends Component{
   }
   
   handleChange = e => {
-    this.setState({ goal : e.target.value })
+    this.setState({ goal : e.target.value });
   }
 
   render(){ 

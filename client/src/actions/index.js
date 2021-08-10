@@ -2,7 +2,9 @@ import goals from '../apis/goals';
 import { 
     ADD_GOAL,
     REMOVE_GOAL,
-    RETRIEVE_GOALS
+    RETRIEVE_GOALS,
+    SEND_RECORDS,
+    RETRIEVE_POMODORI
  } from './types';
 
  export const addGoal = goal => async dispatch => {
@@ -22,3 +24,15 @@ import {
 
      dispatch({ type: REMOVE_GOAL, payload: id })
  };
+
+ export const sendRecords = values => async dispatch => {
+     const response = await goals.post('/records', {...values});
+
+     dispatch({type: SEND_RECORDS, payload: response.data});
+ }
+
+ export const retrievePomodori = () => async dispatch => {
+     const response = await goals.get('/records');
+
+     dispatch({type: RETRIEVE_POMODORI, payload: response.data})
+ }

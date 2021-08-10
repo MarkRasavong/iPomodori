@@ -3,6 +3,18 @@ import Pause from "@material-ui/icons/Pause";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import LoopIcon from '@material-ui/icons/Loop';
 import React, { Component } from "react";
+import { Howl } from 'howler';
+
+//http://soundfxcenter.com/video-games/the-legend-of-zelda/8d82b5_The_Legend_of_Zelda_Secret_Sound_Effect.mp3
+//http://soundfxcenter.com/video-games/final-fantasy-vi/8d82b5_Final_Fantasy_VI_Blue_Magic_Sound_Effect.mp3
+
+var breakAudio = new Howl({
+  src: [ 'http://soundfxcenter.com/video-games/the-legend-of-zelda/8d82b5_The_Legend_of_Zelda_Secret_Sound_Effect.mp3' ],
+});
+
+var successAudio = new Howl({
+  src : [ 'http://soundfxcenter.com/video-games/final-fantasy-vi/8d82b5_Final_Fantasy_VI_Blue_Magic_Sound_Effect.mp3' ],
+});
 
 const useStyles = theme => ({
     root: {
@@ -31,11 +43,13 @@ const useStyles = theme => ({
   });
 
 class Timer extends Component {
+
   state = {
     onSession: true,
     timerSecond: 0,
     intervalId: 0,
     togglePlay: false,
+    recordedInterval: 0,
   };
 
   decreaseTimer = () => {
@@ -46,11 +60,15 @@ class Timer extends Component {
             onSession: false
           });
           this.props.toggleInterval(this.state.onSession);
+          breakAudio.play();
+          this.setState({ recordedInterval : this.state.recordedInterval + 1 });
+          this.props.recordedInterval(this.state.recordedInterval);
         } else {
           this.setState({
             onSession : true
           });
           this.props.toggleInterval(this.state.onSession);
+          successAudio.play();
         }
       }
         this.props.updateTimerMinute();
@@ -87,7 +105,7 @@ class Timer extends Component {
     });
   }
 
-  onPlayStopTimer(){
+  onPlayStopTimer = () => {
     this.props.onPlayStopTimer();
   }
 
