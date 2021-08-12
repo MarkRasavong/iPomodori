@@ -4,10 +4,11 @@ import {
     REMOVE_GOAL,
     RETRIEVE_GOALS,
     SEND_RECORDS,
-    RETRIEVE_POMODORI
+    RETRIEVE_POMODORI,
+    DELETE_POMODRO
  } from './types';
 
- export const addGoal = goal => async dispatch => {
+ export const addGoal = (goal) => async dispatch => {
      const response = await goals.post('/goals', {goal})
 
      dispatch({ type: ADD_GOAL, payload: response.data })
@@ -35,4 +36,10 @@ import {
      const response = await goals.get('/records');
 
      dispatch({type: RETRIEVE_POMODORI, payload: response.data})
+ }
+
+ export const deletePomodoro = goalName => async dispatch => {
+     await goals.delete(`/records?goalName=${goalName}`);
+
+     dispatch({ type: DELETE_POMODRO, payload: goalName })
  }

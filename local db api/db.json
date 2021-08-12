@@ -2,67 +2,77 @@
   "goals": [
     {
       "goal": "Learn Italian",
-      "id": 0
-    },
-    {
-      "goal": "Make pasta with tomato sauce",
       "id": 1
     },
     {
-      "goal": "fare una pasta un'altra volta",
+      "goal": "Parla con il mio amico in italiano",
       "id": 2
     },
     {
-      "goal": "ritorno parlando in inglese, non ricordo bene.",
+      "goal": "prendi più pomodori oggi",
       "id": 3
     },
     {
-      "goal": "parlo con straniero en inglese",
+      "goal": "tornare parlando ingese",
       "id": 4
     }
   ],
   "records": [
     {
-      "id": "b7slAP",
       "sessionTime": 1,
-      "goal": "",
-      "timeStapmed": "14:15:20",
-      "date": "10-8-2021"
+      "goalName": "Learn Italian",
+      "timeStapmed": "10:08:23",
+      "date": "11/08/2021",
+      "id": 89796890
     },
     {
-      "id": "u_cq6-",
-      "sessionTime": 1,
-      "goal": "Learn Italian",
-      "timeStapmed": "14:15:20",
-      "date": "10-8-2021"
+      "sessionTime": 5,
+      "goalName": "Learn Italian",
+      "id": "PFKFKZ",
+      "timeStapmed": "10:14:48",
+      "date": "11/08/2021"
     },
     {
-      "id": "zagmL2",
       "sessionTime": 1,
-      "goal": "fare una pasta un'altra volta",
-      "timeStapmed": "16:3:23",
-      "date": "10-8-2021"
+      "goalName": "Parla con il mio amico in italiano",
+      "id": "aP_g1-",
+      "timeStapmed": "10:21:28",
+      "date": "11/08/2021"
     },
     {
-      "id": "C9jA7u",
       "sessionTime": 1,
-      "goal": "ritorno parlando in inglese, non ricordo bene.",
-      "timeStapmed": "10:8",
-      "date": "10-8-2021"
+      "goalName": "prendi più pomodori oggi",
+      "id": "O7pztZ",
+      "timeStapmed": "08:39:25",
+      "date": "12/08/2021"
     },
     {
-      "id": "F8JdTz",
       "sessionTime": 1,
-      "goal": "",
-      "timeStapmed": "12:58",
-      "date": "10-8-2021"
+      "goalName": "test",
+      "id": "ShJRbB",
+      "timeStapmed": "08:43:00",
+      "date": "12/08/2021"
     },
     {
-      "id": "ChL50L",
       "sessionTime": 1,
-      "goal": "",
-      "timeStapmed": "16:20:35",
-      "date": "10/08/2021"
+      "goalName": "prendi più pomodori oggi",
+      "id": "yLINhf",
+      "timeStapmed": "12:10:05",
+      "date": "12/08/2021"
+    },
+    {
+      "sessionTime": 1,
+      "goalName": "test",
+      "id": "KWunVh",
+      "timeStapmed": "12:32:17",
+      "date": "12/08/2021"
+    },
+    {
+      "sessionTime": 5,
+      "goalName": "prendi più pomodori oggi",
+      "id": "Ai2FCJ",
+      "timeStapmed": "13:46:40",
+      "date": "12/08/2021"
     }
   ]
 }

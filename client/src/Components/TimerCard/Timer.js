@@ -48,7 +48,6 @@ class Timer extends Component {
     onSession: true,
     timerSecond: 0,
     intervalId: 0,
-    togglePlay: false,
     recordedInterval: 0,
   };
 
@@ -128,16 +127,19 @@ class Timer extends Component {
           </span>
           </Typography>
           <Box className={classes.controls}>
-            <Box alignItems='center' pt={1}>
+            { !this.props.isPlaying ?
+              <Box alignItems='center' pt={1}>
               <IconButton aria-label="play" onClick={this.play}>
                 <PlayArrow className={classes.icon} />
               </IconButton>
             </Box>
+            :
             <Box alignItems='center' pt={1}>
               <IconButton aria-label="pause" onClick={this.pause}>
                 <Pause className={classes.icon} />
               </IconButton>
             </Box>
+            }
             <Box alignItems='center' pt={1}>
               <IconButton aria-label="refresh" onClick={this.refresh}>
                 <LoopIcon className={classes.icon} />

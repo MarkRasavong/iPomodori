@@ -43,6 +43,8 @@ const useStyles = theme => ({
     },
   });
 
+let randomNumber = nanoid(6);
+
 class Pomodoro extends Component{
     today = new Date();
     state = {
@@ -52,10 +54,11 @@ class Pomodoro extends Component{
           isPlaying: false,
           recordedInterval: 0,
           selectedGoal: '',
+          selectedGoalId: '',
           timeStamp: null,
-          completedDate: null
+          completedDate: null,
+          id: randomNumber
       }
-
 
 onIncreaseSessionLength = () => {
     if(this.state.sessionLength === 60){
@@ -102,7 +105,7 @@ onDecreaseSessionLength = () => {
     )
  }
 
- onToggleInterval = (onSession) => {
+ onToggleInterval = onSession => {
     if(onSession){
         return this.setState({
          timerMinute: this.state.sessionLength
@@ -120,36 +123,41 @@ onDecreaseSessionLength = () => {
      })
  }
 
- onPlayTimer = (isPlaying) => {
+ onPlayTimer = isPlaying => {
      this.setState({
          isPlaying : isPlaying
      })
  }
 
- selectedGoal = (prevValue) => {
+ selectedGoal = prevValue=> {
      this.setState({ 
          selectedGoal: prevValue
      });
  };
+
+ selectedGoalId = prevValue => {
+     this.setState({
+         selectedGoalId : prevValue
+     })
+ }
 
  recordedInterval = prevValue => {
      const options = { day: 'numeric', month: 'numeric', year: 'numeric' }
      this.setState({ recordedInterval :prevValue });
      if(prevValue !== 0){
          const record = {
-             id: nanoid(6),
              sessionTime : this.state.timerMinute,
-             goal: this.state.selectedGoal,
+             goalName: this.state.selectedGoal,
+             id: this.state.id,
              timeStapmed: new Date().toLocaleTimeString(),
-             date: new Date().toLocaleDateString(options)
-
+             date: new Date().toLocaleDateString(options),
          };
          this.props.sendRecords(record);
      }
  }
 
     render(){
-        const  { classes } = this.props;
+    const  { classes } = this.props;
       return (
       <Card className={classes.root}>
         <Box alignItems="center" className={classes.details}>
@@ -159,33 +167,34 @@ onDecreaseSessionLength = () => {
           <CardContent className={classes.content}>
             <Dropdown 
             selectedGoal={this.selectedGoal}
+            selectedGoalId={this.selectedGoalId}
             />
           </CardContent>
           {/*TIMER LOGIC*/}
           <Timer
-          sessionLength={this.state.sessionLength}
+          isPlaying={this.state.isPlaying}
           timerMinute={this.state.timerMinute}
           breakLength={this.state.breaklength}
           updateTimerMinute={this.updateTimerMinute}
           toggleInterval={this.onToggleInterval}
           resetTimer={this.onResetTimer}
           onPlayStopTimer={this.onPlayTimer}
-          recordedInterval={this.recordedInterval}
+          recordedInterval={this.recordedInterval}          
           /> 
           <Box className={classes.controls}>
             { /* Session Timer Settings*/ }
         <Box alignItems='center' pt={2}>
             <Box textAlign='center'>
-            <Typography variant='p'>Session</Typography>
+            <Typography variant='subtitle2'>Session</Typography>
             </Box>
             <>
-            <IconButton aria-label='increase session length' disabled={this.state.isPlaying ? true : false} onClick={this.onIncreaseSessionLength} isPlaying={this.state.isPlaying}>
+            <IconButton aria-label='increase session length' disabled={this.state.isPlaying ? true : false} onClick={this.onIncreaseSessionLength}>
                 <KeyboardArrowUp className={classes.icon} />
             </IconButton>
             <Box textAlign='center'>
-            <Typography variant='h5' alignCenter>{this.state.sessionLength}</Typography>
+            <Typography variant='h5'>{this.state.sessionLength}</Typography>
             </Box>
-            <IconButton aria-label='decrease session length' disabled={this.state.isPlaying ? true : false} onClick={this.onDecreaseSessionLength} isPlaying={this.state.isPlaying}>
+            <IconButton aria-label='decrease session length' disabled={this.state.isPlaying ? true : false} onClick={this.onDecreaseSessionLength}>
                 <KeyboardArrowDown className={classes.icon} />
             </IconButton>
             </>
@@ -193,13 +202,13 @@ onDecreaseSessionLength = () => {
             { /* Break Timer Settings */ }
         <Box alignItems='center' pt={2}>
             <Box textAlign='center'>
-            <Typography variant='p'>Break</Typography>
+            <Typography variant='subtitle2'>Break</Typography>
             </Box>
             <IconButton aria-label='increase break length' disabled={this.state.isPlaying ? true : false} onClick={this.onIncreaseBreakLength} isPlaying={this.state.isPlaying}>
                 <KeyboardArrowUp className={classes.icon} />
             </IconButton>
             <Box textAlign='center'>
-            <Typography variant='h5' alignCenter>{this.state.breaklength}</Typography>
+            <Typography variant='h5'>{this.state.breaklength}</Typography>
             </Box>
             <IconButton aria-label='decrease break length' disabled={this.state.isPlaying ? true : false} onClick={this.onDecreaseBreakLength} isPlaying={this.state.isPlaying}>
                 <KeyboardArrowDown className={classes.icon} />

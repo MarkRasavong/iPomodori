@@ -20,6 +20,7 @@ const styles = (theme) => ({
 class Dropdown extends Component{
   state = {
     goal: '',
+    goalId: ''
   }
 
   componentDidMount(){
@@ -30,13 +31,21 @@ class Dropdown extends Component{
     if(prevState.goal !== this.state.goal){
       this.props.selectedGoal(this.state.goal);
     }
+    if(prevState.goalId !== this.state.goalId){
+      this.props.selectedGoalId(this.state.goalId)
+    }
   }
 
   renderGoals(){
     return this.props.goals.map(item => {
       const { goal, id } = item;
 
-      return  <MenuItem value={goal} key={id} >
+      return ( 
+      <MenuItem 
+      value={goal} 
+      key={id}
+      onClick={() => this.handleClick(goal, id)}
+      >
           <IconButton aria-label='trash'
           onClick={()=>this.props.deleteGoal(id)}
           >
@@ -44,12 +53,14 @@ class Dropdown extends Component{
           </IconButton> 
           {goal}
           </MenuItem>
+          )
     }
     )
   }
   
-  handleChange = e => {
-    this.setState({ goal : e.target.value });
+  handleClick = (goal, id) => {
+    this.setState({ goalId : id });
+    this.setState({ goal : goal });
   }
 
   render(){ 
@@ -57,7 +68,7 @@ class Dropdown extends Component{
     return (
     <FormControl className={classes.formControl}>
     <InputLabel>Goal</InputLabel>
-    <Select value={this.state.goal} onChange={this.handleChange} >
+    <Select>
       <MenuItem disabled>Select Goal</MenuItem>
       {this.renderGoals()}
     </Select>

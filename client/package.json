@@ -13,6 +13,7 @@
     "lodash": "^4.17.21",
     "nanoid": "^3.1.23",
     "react": "^17.0.2",
+    "react-apple-emojis": "^2.0.2",
     "react-countdown-circle-timer": "^2.5.3",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
