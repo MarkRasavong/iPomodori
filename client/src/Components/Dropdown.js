@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { connect } from 'react-redux';
-import { retrieveGoals, deleteGoal } from '../actions';
+import { retrieveGoals, deleteGoal, selected } from '../actions';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -20,7 +20,7 @@ const styles = (theme) => ({
 class Dropdown extends Component{
   state = {
     goal: '',
-    goalId: ''
+    goalId: '',
   }
 
   componentDidMount(){
@@ -61,6 +61,7 @@ class Dropdown extends Component{
   handleClick = (goal, id) => {
     this.setState({ goalId : id });
     this.setState({ goal : goal });
+    this.props.selected();
   }
 
   render(){ 
@@ -83,4 +84,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { retrieveGoals, deleteGoal })(withStyles(styles)(Dropdown))
+export default connect(mapStateToProps, { retrieveGoals, deleteGoal, selected })(withStyles(styles)(Dropdown))

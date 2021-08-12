@@ -49,8 +49,8 @@ class Pomodoro extends Component{
     today = new Date();
     state = {
           breaklength: 5,
-          sessionLength: 25,
-          timerMinute: 25,
+          sessionLength: 5,
+          timerMinute: 5,
           isPlaying: false,
           recordedInterval: 0,
           selectedGoal: '',
@@ -146,7 +146,7 @@ onDecreaseSessionLength = () => {
      this.setState({ recordedInterval :prevValue });
      if(prevValue !== 0){
          const record = {
-             sessionTime : this.state.timerMinute,
+             sessionTime : this.state.sessionLength,
              goalName: this.state.selectedGoal,
              id: this.state.id,
              timeStapmed: new Date().toLocaleTimeString(),

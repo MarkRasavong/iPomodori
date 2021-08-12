@@ -4,6 +4,7 @@ import PlayArrow from "@material-ui/icons/PlayArrow";
 import LoopIcon from '@material-ui/icons/Loop';
 import React, { Component } from "react";
 import { Howl } from 'howler';
+import { connect } from "react-redux";
 
 //http://soundfxcenter.com/video-games/the-legend-of-zelda/8d82b5_The_Legend_of_Zelda_Secret_Sound_Effect.mp3
 //http://soundfxcenter.com/video-games/final-fantasy-vi/8d82b5_Final_Fantasy_VI_Blue_Magic_Sound_Effect.mp3
@@ -129,7 +130,11 @@ class Timer extends Component {
           <Box className={classes.controls}>
             { !this.props.isPlaying ?
               <Box alignItems='center' pt={1}>
-              <IconButton aria-label="play" onClick={this.play}>
+              <IconButton 
+              aria-label="play" 
+              onClick={this.play}
+              disabled={this.props.selected[0] === null}
+              >
                 <PlayArrow className={classes.icon} />
               </IconButton>
             </Box>
@@ -151,4 +156,8 @@ class Timer extends Component {
   }
 }
 
-export default withStyles(useStyles)(Timer);
+const mapStateToProps = state => {
+    return { selected : Object.values(state.select) }
+}
+
+export default connect(mapStateToProps)(withStyles(useStyles)(Timer));

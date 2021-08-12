@@ -5,7 +5,9 @@ import {
     RETRIEVE_GOALS,
     SEND_RECORDS,
     RETRIEVE_POMODORI,
-    DELETE_POMODRO
+    DELETE_POMODRO,
+    SELECTED,
+    NOT_SELECTED
  } from './types';
 
  export const addGoal = (goal) => async dispatch => {
@@ -43,3 +45,15 @@ import {
 
      dispatch({ type: DELETE_POMODRO, payload: goalName })
  }
+
+export const selected = () => {
+  return {
+    type: SELECTED
+  };
+};
+
+export const notSelected = () => {
+  return {
+    type: NOT_SELECTED,
+  };
+};

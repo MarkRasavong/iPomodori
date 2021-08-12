@@ -1,6 +1,5 @@
 import { withStyles } from "@material-ui/core";
 import { Box, Card, CardContent, Typography } from "@material-ui/core";
-import _, { result } from "lodash";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { retrievePomodori, deletePomodoro } from "../actions";
@@ -55,7 +54,7 @@ class PomodoriTotali extends Component {
       <Box>
         <Typography variant='h6' align='left'>
         <IconButton aria-label='trash'
-          onClick={()=>this.props.deletePomodoro((key).replace(/%20/g, " "))}
+          onClick={()=>this.props.deletePomodoro((key))}
           >
             <DeleteIcon fontSize="small"/>
         </IconButton> 

@@ -5,3 +5,5 @@ export const SET_WORK_TIME = 'SET_WORK_TIME';
 export const SEND_RECORDS = 'SEND_RECORDS';
 export const RETRIEVE_POMODORI = 'RETRIEVE_POMODORI';
 export const DELETE_POMODRO = 'DELETE_POMODORO';
+export const SELECTED = 'SELECTED';
+export const NOT_SELECTED = 'NOT_SELECTED';
