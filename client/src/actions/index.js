@@ -40,10 +40,9 @@ import {
      dispatch({type: RETRIEVE_POMODORI, payload: response.data})
  }
 
- export const deletePomodoro = goalName => async dispatch => {
-     await goals.delete(`/records?goalName=${goalName}`);
-
-     dispatch({ type: DELETE_POMODRO, payload: goalName })
+ export const deletePomodoro = record => async dispatch => {
+     await goals.delete(`/records/${record.id}`);
+     dispatch({ type: DELETE_POMODRO, payload: record })
  }
 
 export const selected = () => {

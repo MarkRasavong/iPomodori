@@ -43,35 +43,30 @@ class PomodoriTotali extends Component {
   render() {
     const { classes } = this.props;
 
-    let goals = this.props.records.reduce( ( accumulator, { sessionTime, goalName} ) => {
-      accumulator[goalName] = accumulator[ goalName ] ? (accumulator[goalName] + sessionTime): sessionTime;
-      return accumulator;
-  }, {} );
-
-  const keyValue = (input) => Object.entries(input).map(([key,value]) => {
-    return(
-      <>
-      <Box>
-        <Typography variant='h6' align='left'>
-        <IconButton aria-label='trash'
-          onClick={()=>this.props.deletePomodoro((key))}
-          >
-            <DeleteIcon fontSize="small"/>
-        </IconButton> 
-          {key}
-        </Typography>
-      </Box>
-      <Box>
-        <Typography variant='subtitle2' align='right'>
-        {value}   { value === 1 ? 'Pomodoro ' : 'Pomodori '}
-        <EmojiProvider data={emojiData}>
-        <Emoji name='tomato' width='16px'/>
-        </EmojiProvider>
-        </Typography>
-      </Box>
-      </>
+    const keyValue = (record) => {
+      return (
+        <React.Fragment key={record.id}>
+          <Box>
+            <Typography variant='h6' align='left'>
+              <IconButton aria-label='trash'
+                onClick={() => this.props.deletePomodoro((record))}
+              >
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+              {record.goalName}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant='subtitle2' align='right'>
+              {record.sessionTime}   {record.sessionTime === 1 ? 'Pomodoro ' : 'Pomodori '}
+              <EmojiProvider data={emojiData}>
+                <Emoji name='tomato' width='16px' />
+              </EmojiProvider>
+            </Typography>
+          </Box>
+        </React.Fragment>
       )
-  })
+    }
 
     return (
       <Card className={classes.root}>
@@ -80,12 +75,10 @@ class PomodoriTotali extends Component {
             <Typography align="center" component="h5" variant="h5" pd={1}>
               Total Pomodori
             </Typography>
-              { 
-               keyValue(goals) 
-              }
+            {this.props.records.map(keyValue)}
             <EmojiProvider data={emojiData}>
-        <Emoji name='tomato' width='20px'/>
-        </EmojiProvider> = 1 minute
+              <Emoji name='tomato' width='20px' />
+            </EmojiProvider> = 1 minute
           </CardContent>
         </Box>
       </Card>

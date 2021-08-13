@@ -8,7 +8,7 @@ export default ( state = {}, action ) => {
         case RETRIEVE_POMODORI:
             return { ...state, ..._.mapKeys (action.payload, 'goalName')};
         case DELETE_POMODRO:
-            return _.omit(state, action.payload);
+            return _.omit(state, action.payload.goalName);
         default:
             return state
     }
