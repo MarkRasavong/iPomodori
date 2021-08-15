@@ -11,13 +11,13 @@ import {
  } from './types';
 
  export const addGoal = (goal) => async dispatch => {
-     const response = await goals.post('/goals', {goal})
+    const response = await goals.post('/saveTask', goal)
 
-     dispatch({ type: ADD_GOAL, payload: response.data })
+     dispatch({ type: ADD_GOAL, payload: response.data})
  };
 
  export const retrieveGoals = () => async dispatch => {
-     const response = await goals.get('/goals');
+     const response = await goals.get('/getTasks');
 
      dispatch({type: RETRIEVE_GOALS, payload: response.data})
  };

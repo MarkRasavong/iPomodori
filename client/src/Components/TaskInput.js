@@ -35,14 +35,16 @@ const TaskInput = (props) => {
   const [ goal, setGoal ] = useState('')
 
   const handleChange = e => {
-    setGoal(e.target.value)
+    setGoal(e.target.value);
   }
 
   const handleSubmit = e => {
-    props.addGoal(goal);
-    setGoal('');
     e.preventDefault();
-    
+    const payload={
+      name : goal
+    }
+    props.addGoal(payload);
+    setGoal('');
   }
 
   return (

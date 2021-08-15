@@ -25,7 +25,7 @@ class Dropdown extends Component{
 
   componentDidMount(){
     this.props.retrieveGoals();
-  };
+  }
 
   componentDidUpdate(prevState){
     if(prevState.goal !== this.state.goal){
@@ -37,21 +37,21 @@ class Dropdown extends Component{
   }
 
   renderGoals(){
-    return this.props.goals.map(item => {
-      const { goal, id } = item;
-
+      return this.props.goals.map(item => {
+      const { name, _id } = item;
+      console.log(_id)
       return ( 
       <MenuItem 
-      value={goal} 
-      key={id}
-      onClick={() => this.handleClick(goal, id)}
+      value={name} 
+      key={_id}
+      onClick={() => this.handleClick(name, _id)}
       >
           <IconButton aria-label='trash'
-          onClick={()=>this.props.deleteGoal(id)}
+          onClick={()=>this.props.deleteGoal(_id)}
           >
             <DeleteIcon />
           </IconButton> 
-          {goal}
+          {name}
           </MenuItem>
           )
     }
@@ -80,7 +80,7 @@ class Dropdown extends Component{
 
 const mapStateToProps = state => {
   return{
-    goals: Object.values(state.goals)
+    goals: state.goals
   }
 }
 
