@@ -11,37 +11,37 @@ import {
  } from './types';
 
  export const addGoal = (goal) => async dispatch => {
-    const response = await goals.post('/saveTask', goal)
+    const response = await goals.post('/', goal)
 
      dispatch({ type: ADD_GOAL, payload: response.data})
  };
 
  export const retrieveGoals = () => async dispatch => {
-     const response = await goals.get('/getTasks');
+     const response = await goals.get('/');
 
      dispatch({type: RETRIEVE_GOALS, payload: response.data})
  };
 
  export const deleteGoal = id => async dispatch => {
-     await goals.delete(`/goals/${id}`)
+     await goals.delete(`/${id}`)
 
      dispatch({ type: REMOVE_GOAL, payload: id })
  };
 
  export const sendRecords = values => async dispatch => {
-     const response = await goals.post('/records', {...values});
+     const response = await goals.post('/record', values);
 
      dispatch({type: SEND_RECORDS, payload: response.data});
  }
 
  export const retrievePomodori = () => async dispatch => {
-     const response = await goals.get('/records');
+     const response = await goals.get('/record');
 
      dispatch({type: RETRIEVE_POMODORI, payload: response.data})
  }
 
  export const deletePomodoro = record => async dispatch => {
-     await goals.delete(`/records/${record.id}`);
+     await goals.delete(`/record/${record.goalName}`);
      dispatch({ type: DELETE_POMODRO, payload: record })
  }
 

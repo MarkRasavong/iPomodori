@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { nanoid } from 'nanoid';
 import {
     Box,
     Card,
@@ -43,10 +42,8 @@ const useStyles = theme => ({
     },
   });
 
-let randomNumber = nanoid(6);
 
 class Pomodoro extends Component{
-    today = new Date();
     state = {
           breaklength: 5,
           sessionLength: 5,
@@ -57,7 +54,6 @@ class Pomodoro extends Component{
           selectedGoalId: '',
           timeStamp: null,
           completedDate: null,
-          id: randomNumber
       }
 
 onIncreaseSessionLength = () => {
@@ -142,15 +138,12 @@ onDecreaseSessionLength = () => {
  }
 
  recordedInterval = prevValue => {
-     const options = { day: 'numeric', month: 'numeric', year: 'numeric' }
      this.setState({ recordedInterval :prevValue });
      if(prevValue !== 0){
          const record = {
              sessionTime : this.state.sessionLength,
              goalName: this.state.selectedGoal,
-             id: this.state.id,
              timeStapmed: new Date().toLocaleTimeString(),
-             date: new Date().toLocaleDateString(options),
          };
          this.props.sendRecords(record);
      }

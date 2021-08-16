@@ -88,7 +88,7 @@ class PomodoriTotali extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    records: Object.values(state.records),
+    records: state.records,
   };
 };
 
