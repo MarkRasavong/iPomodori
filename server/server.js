@@ -15,7 +15,7 @@ app.use(cors({
 }));
 
 //connecting MongoDB 
-mongoose.connect(process.env.MONGO_DB_URI || 'mongodb://localhost:27017/iPomodori', { useNewUrlParser: true, useUnifiedtopology: true  });
+mongoose.connect(process.env.MONGO_DB_URI, { useNewUrlParser: true, useUnifiedtopology: true });
 mongoose.connection.on('connected', () => (
     console.log('database connesso')
 ))
@@ -24,7 +24,7 @@ mongoose.connection.on('connected', () => (
 
 const goalsSchema = new mongoose.Schema({
     name: {
-        type : String,
+        type: String,
         require: [true, 'Please add create a goal']
     },
 });
@@ -73,20 +73,20 @@ record.save(err => {
 */
 
 
-app.get('/' , async (req, res) =>{
+app.get('/', async (req, res) => {
     const getGoals = await Goal.find();
-        res.status(200).json(getGoals);
-        res.redirect('/');
-    });
+    res.status(200).json(getGoals);
+    res.redirect('/');
+});
 
 app.post('/', (req, res) => {
     const { name } = req.body;
-    const newGoal = new Goal( {name: name} );
+    const newGoal = new Goal({ name: name });
 
     newGoal.save(err => {
-        if(err){
+        if (err) {
             res.status(500).json({ msg: 'Sorry, interal server errors' })
-        }else{
+        } else {
             res.json({
                 msg: 'Data has been saved to DB'
             });
@@ -97,29 +97,30 @@ app.post('/', (req, res) => {
 
 app.delete('/:id', async (req, res) => {
     const { id } = req.params;
-    await Goal.deleteOne({ _id : id });
+    await Goal.deleteOne({ _id: id });
 
-    res.json({ message : 'Post Deleted Succesfully' });
+    res.json({ message: 'Post Deleted Succesfully' });
     res.redirect('/');
 });
 
-app.get('/record' , async (req, res) =>{
+app.get('/record', async (req, res) => {
     const getRecords = await Record.find();
-        res.status(200).json(getRecords)
-        res.redirect('/');
-    });
+    res.status(200).json(getRecords)
+    res.redirect('/');
+});
 
 app.post('/record', (req, res) => {
-    const { goalName, sessionTime,timeStapmed } = req.body;
+    const { goalName, sessionTime, timeStapmed } = req.body;
     const newRecord = new Record({
         goalName: goalName,
         sessionTime: sessionTime,
-        timeStamped: timeStapmed});
+        timeStamped: timeStapmed
+    });
 
-        newRecord.save(err => {
-        if(err){
+    newRecord.save(err => {
+        if (err) {
             res.status(500).json({ msg: 'Sorry, interal server errors' })
-        }else{
+        } else {
             res.json({
                 msg: 'Data has been saved to DB'
             });
@@ -131,7 +132,7 @@ app.post('/record', (req, res) => {
 app.delete('/record/:goalName', async (req, res) => {
     const { goalName } = req.params;
 
-    await Record.deleteMany({ goalName : goalName });
+    await Record.deleteMany({ goalName: goalName });
 
     res.json({ message: 'Post Deleted Succesfully' });
     res.redirect('/');
